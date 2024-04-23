@@ -16,30 +16,30 @@
          \___/|_| |_| |_\___/_|  /___|   |_/_|   
                                                  
          Benvingut al meu web personal. Escriu "help" per veure les comandes disponibles
-
-         Aquesta pàgina web està feta a partir de la guia escrita per Jakub T. Jankiewicz a Medium 
-         "How to create interactive terminal like website with JavaScript?" 
-         ( https://itnext.io/how-to-create-interactive-terminal-like-website-888bb0972288)
                                                  
     </template>
     <script>
         $('body').terminal({
-    hola: function(what) {
-        this.echo('Hola, ' + what +
-                  '. Benvingut al meu web personal.');
-    },
-    help: function() {
+            help: function() {
         this.echo('Aquestes són les comandes disponibles: ');
         this.echo('help: Mostra la lista de comandes disponibles')
         this.echo('hola [nom]: Rep una salutació de part del terminal');
         this.echo('gat: Mostra un gat, res més... un gat.');
+        this.echo('reconeixements: Mostra els meus respectes cap a qui m\'ha permés fer aquesta pàgina web.');
+    },
+    hola: function(what) {
+        this.echo('Hola, ' + what +
+                  '. Benvingut al meu web personal.');
     },
     gat: function() {
         const gat =$('<img src="https://cataas.com/cat">');
         gat.on('load', this.resume);
         this.pause();
         this.echo(gat);
-    }
+    },
+    reconeixements: function() {
+        this.echo('Els reconeixements d\'aquesta pàgina web van cap a Jakub T. Jankiewicz i el seu article a Medium \"How to create interactive terminal like website with JavaScript?\" ( https://itnext.io/how-to-create-interactive-terminal-like-website-888bb0972288)');
+    },
 }, {
     greetings: greetings.innerHTML
 });
