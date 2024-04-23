@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
+<title>0m1rz4r</title>
+</head>
+<body>
+    <template id="greetings">
+        _____           __             ___      
+        |  _  |         /  |           /   |     
+        | |/' |_ __ ___ `| | _ __ ____/ /| |_ __ 
+        |  /| | '_ ` _ \ | || '__|_  / /_| | '__|
+        \ |_/ / | | | | || || |   / /\___  | |   
+         \___/|_| |_| |_\___/_|  /___|   |_/_|   
+                                                 
+         Benvingut al meu web personal. Escriu "help" per veure les comandes disponibles
+
+         Aquesta pàgina web està feta a partir de la guia escrita per Jakub T. Jankiewicz a Medium 
+         "How to create interactive terminal like website with JavaScript?" 
+         ( https://itnext.io/how-to-create-interactive-terminal-like-website-888bb0972288)
+                                                 
+    </template>
+    <script>
+        $('body').terminal({
+    hola: function(what) {
+        this.echo('Hola, ' + what +
+                  '. Benvingut al meu web personal.');
+    },
+    help: function() {
+        this.echo('Aquestes són les comandes disponibles: ');
+        this.echo('help: Mostra la lista de comandes disponibles')
+        this.echo('hola [nom]: Rep una salutació de part del terminal');
+        this.echo('gat: Mostra un gat, res més... un gat.');
+    },
+    gat: function() {
+        const gat =$('<img src="https://cataas.com/cat">');
+        gat.on('load', this.resume);
+        this.pause();
+        this.echo(gat);
+    }
+}, {
+    greetings: greetings.innerHTML
+});
+    </script>
+</body>
+</html>
