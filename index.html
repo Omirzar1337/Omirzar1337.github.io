@@ -1,53 +1,89 @@
 <!DOCTYPE html>
 <html>
-<head>
-<script src="https://cdn.jsdelivr.net/npm/jquery"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
-<title>0m1rz4r</title>
-</head>
-<body>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css" />
+    <style>
+      .terminal {
+        --color: green;
+        --background: black;
+        --link-color: red;
+        --animation: terminal-underline;
+        --line-thickness: 3;
+        --size: 1.5;
+      }
+    </style>
+    <title>0m1rz4r</title>
+  </head>
+  <body>
     <template id="greetings">
-        _____           __             ___      
-        |  _  |         /  |           /   |     
-        | |/' |_ __ ___ `| | _ __ ____/ /| |_ __ 
-        |  /| | '_ ` _ \ | || '__|_  / /_| | '__|
-        \ |_/ / | | | | || || |   / /\___  | |   
-         \___/|_| |_| |_\___/_|  /___|   |_/_|   
-                                                 
-         Welcome to my web page! Use "help" to see the list of commands.
-                                                 
+
+        ________  _____ ______     _____  ________ ________  ___   ___  ________     
+        |\   __  \|\   _ \  _   \  / __  \|\   __  \\_____  \|\  \ |\  \|\   __  \    
+        \ \  \|\  \ \  \\\__\ \  \|\/_|\  \ \  \|\  \|___/  /\ \  \\_\  \ \  \|\  \   
+         \ \  \\\  \ \  \\|__| \  \|/ \ \  \ \   _  _\  /  / /\ \______  \ \   _  _\  
+          \ \  \\\  \ \  \    \ \  \   \ \  \ \  \\  \|/  /_/__\|_____|\  \ \  \\  \| 
+           \ \_______\ \__\    \ \__\   \ \__\ \__\\ _\\________\     \ \__\ \__\\ _\ 
+            \|_______|\|__|     \|__|    \|__|\|__|\|__\|_______|      \|__|\|__|\|__|
+
+            
+      Welcome to my web page! Use "help" to see the list of commands.
     </template>
     <script>
-        $('body').terminal({
-            help: function() {
-        this.echo('These are the available commands:');
-        this.echo('help: Shows the list of available commands');
-        this.echo('whoami: Shows an introduction of who I am');
-        this.echo('clear: Clears the terminal');
-        this.echo('hello [name]: Greets you with a message from the terminal');
-        this.echo('cat: Shows a cat, nothing more... a cat.');
-        this.echo('acknowledgments: Shows my gratitude to who made this web page possible');
-    },
-    hello: function(what) {
-        this.echo('hello, ' + what +
-                  '. Welcome to my web page.');
-    },
-    cat: function() {
-        const cat =$('<img src="https://cataas.com/cat">');
-        cat.on('load', this.resume);
-        this.pause();
-        this.echo(cat);
-    },
-    Acknowledgments: function() {
-        this.echo('Acknowledgments for this web page go to Jakub T. Jankiewicz and his article at Medium \"How to create interactive terminal like website with JavaScript?\" ( https://itnext.io/how-to-create-interactive-terminal-like-website-888bb0972288)');
-    },
-    whoami: function() {
-        this.echo(`Hello! My name is 0m1rz4r. I am a freak of tecnology and electronics. I'm also a web dev, tho, my main attraction are systems so I also consider myself a Systems Technician!`);
-    }
-}, {
-    greetings: greetings.innerHTML
-});
+      $('body').terminal(
+        {
+          help: function () {
+            this.echo('These are the available commands:');
+            this.echo('help: Shows the list of available commands');
+            this.echo('whoami: Shows an introduction of who I am');
+            this.echo('clear: Clears the terminal');
+            this.echo(
+              'hello [name]: Greets you with a message from the terminal'
+            );
+            this.echo('cat: Shows a cat, nothing more... a cat.');
+            this.echo(
+              'acknowledgments: Shows my gratitude to who made this web page possible'
+            );
+          },
+          hello: function (what) {
+            this.echo('hello, ' + what + '. Welcome to my web page.');
+          },
+          cat: async function () {
+            try {
+              // Start fetching the image with a unique timestamp
+              const response = await fetch(
+                'https://cataas.com/cat?random=' + new Date().getTime()
+              );
+              const blob = await response.blob(); // Get the image as a Blob
+
+              // Create an image element from the Blob
+              const url = URL.createObjectURL(blob);
+              const cat = $('<img>', { src: url, alt: 'Random Cat' });
+
+              // Echo the image once it’s ready without pausing the page
+              this.echo(cat);
+            } catch (error) {
+              this.echo('Failed to load cat image'); // Error handling if fetch fails
+            }
+          },
+          acknowledgments: function () {
+            this.echo(
+              'Acknowledgments for this web page go to Jakub T. Jankiewicz who developed JQueryTerminal! Kudos to him! [https://terminal.jcubic.pl]'
+            );
+          },
+          whoami: function () {
+            this.echo(
+              `Hello! My name is 0m1rz4r. I am a freak of tecnology and electronics. I'm a WebDev though I'm studying CyberSecurity which I much prefer! I love tinkering with pretty much any system and I love leaving a cyberpunk kind of life.`
+            );
+          },
+        },
+        {
+          greetings: greetings.innerHTML,
+        }
+      );
     </script>
-</body>
+  </body>
 </html>
